@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.33 2023/11/08 13:20:33 wiz Exp $
+# $NetBSD: Makefile,v 1.39 2024/11/14 22:21:14 wiz Exp $
 
 DISTNAME=		openconnect-9.12
-PKGREVISION=		4
+PKGREVISION=		8
 CATEGORIES=		net security
 MASTER_SITES=		https://www.infradead.org/openconnect/download/ \
 			ftp://ftp.infradead.org/pub/openconnect/
@@ -13,7 +13,7 @@ LICENSE=		gnu-lgpl-v2.1
 
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
-USE_TOOLS+=		gmake pkg-config bash
+USE_TOOLS+=		gmake pkg-config bash:run
 
 DEPENDS+=		vpnc-script-[0-9]*:../../net/vpnc-script
 
@@ -25,9 +25,9 @@ CONFIGURE_ARGS+=	--disable-docs
 REPLACE_PYTHON=		trojans/*.py
 REPLACE_BASH=		trojans/*.sh
 
+.include "options.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../lang/python/application.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
-.include "../../www/libproxy/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
